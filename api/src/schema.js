@@ -2,15 +2,18 @@ const {gql} = require('apollo-server-express');
 
 // 使用GraphQL模式语言编制一个模式
 module.exports = gql`
-type Query {
-    hello: String
-    notes: [Note!]!
-    note(id: ID!): Note!
-}
+scalar DateTime
 type Note {
     id: ID!
     content: String!
     author: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+type Query {
+    hello: String
+    notes: [Note!]!
+    note(id: ID!): Note!
 }
 type Mutation {
     newNote(content: String!): Note!
