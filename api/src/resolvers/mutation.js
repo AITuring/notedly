@@ -45,7 +45,7 @@ module.exports = {
         // 计算密码哈希值
         const hashed = await bcrypt.hash(password,10);
         // 生成gravatar URL
-        const avatar = gravatar(email)
+        const avatar = gravatar(email);
         try {
             const user = await models.User.create({
                 username,
