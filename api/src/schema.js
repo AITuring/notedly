@@ -9,6 +9,8 @@ type Note {
     author: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    favoriteCount: Int!
+    favoritedBy: [User!]
 }
 type User {
     id: ID!
@@ -16,11 +18,15 @@ type User {
     email: String!
     avatar: String!
     notes: [Note!]
+    favorites: [User!]
 }
 type Query {
     hello: String
     notes: [Note!]!
     note(id: ID!): Note!
+    user(username: String!): User
+    users:[User!]!
+    me: User!
 }
 type Mutation {
     newNote(content: String!): Note!
@@ -28,5 +34,6 @@ type Mutation {
     deleteNote(id: ID!): Boolean!
     signUp(username: String!, email: String!, password: String!): String!
     signIn(username: String, email: String, password: String!): String!
+    toggleFavorite(id: ID!): Note!
 }
 `
