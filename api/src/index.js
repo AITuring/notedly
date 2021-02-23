@@ -3,6 +3,10 @@
 const express = require('express');
 const {ApolloServer} = require('apollo-server-express');
 const jwt = require('jsonwebtoken');
+const helmet = require('helmet');
+const cors = require('cors');
+const depthLimit = require('graphql-depth-limit');
+const {createComplexityLimitRule} = require('graphql-complexity-limit');
 require('dotenv').config();
 
 // 导入本地模块
@@ -31,6 +35,9 @@ const getUser = token => {
 }
 
 const app = express();
+app.use(helmet());
+app.use(cors());
+
 // 连接数据库
 db.connect(DB_HOST);
 
@@ -39,6 +46,7 @@ db.connect(DB_HOST);
 const server = new ApolloServer({
     typeDefs, 
     resolvers,
+    validationRules: [depthLimit(5), createComplexityLimitRule(1000)],
     context: ({ req })=>{
         // 从首部获取令牌
         const token = req.headers.authorization
