@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
 const cors = require('cors');
 const depthLimit = require('graphql-depth-limit');
-const {createComplexityLimitRule} = require('graphql-complexity-limit');
+const {createComplexityLimitRule} = require('graphql-validation-complexity');
 require('dotenv').config();
 
 // 导入本地模块
